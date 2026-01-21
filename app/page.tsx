@@ -7,7 +7,36 @@ export default function DyslexiaReader() {
   const [inputText, setInputText] = useState("");
   const [rulerPosition, setRulerPosition] = useState(0);
   const [showRuler, setShowRuler] = useState(false);
+  const [selectedFont, setSelectedFont] = useState("OpenDyslexic");
   const outputRef = useRef<HTMLDivElement>(null);
+
+  const dyslexiaFonts = [
+    {
+      name: "OpenDyslexic",
+      value: '"OpenDyslexic", sans-serif',
+      description: "Criada especificamente para dislexia",
+    },
+    {
+      name: "Lexend",
+      value: '"Lexend", sans-serif',
+      description: "Baseada em pesquisas de legibilidade",
+    },
+    {
+      name: "Comic Sans MS",
+      value: '"Comic Sans MS", cursive',
+      description: "Comprovadamente eficaz para dislexia",
+    },
+    {
+      name: "Arial",
+      value: "Arial, sans-serif",
+      description: "Simples e clara",
+    },
+    {
+      name: "Verdana",
+      value: "Verdana, sans-serif",
+      description: "Excelente legibilidade em telas",
+    },
+  ];
 
   const handleMouseMove = (e: MouseEvent) => {
     if (outputRef.current) {
@@ -82,11 +111,28 @@ export default function DyslexiaReader() {
 
           {/* Output Section with Ruler */}
           <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-5 h-5 text-amber-700" />
-              <h2 className="text-xl font-semibold text-gray-800">
-                Leitura Facilitada
-              </h2>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-amber-700" />
+                <h2 className="text-xl font-semibold text-gray-800">
+                  Leitura Facilitada
+                </h2>
+              </div>
+              <div className="flex items-center gap-2">
+                <Type className="w-4 h-4 text-amber-700" />
+                <select
+                  value={selectedFont}
+                  onChange={(e) => setSelectedFont(e.target.value)}
+                  aria-label="Selecionar fonte para leitura"
+                  className="px-3 py-2 text-sm bg-amber-50 text-amber-900 border-2 border-amber-200 rounded-lg hover:bg-amber-100 focus:border-amber-400 focus:outline-none transition-colors cursor-pointer"
+                >
+                  {dyslexiaFonts.map((font) => (
+                    <option key={font.name} value={font.name}>
+                      {font.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div
               ref={outputRef}
@@ -118,7 +164,9 @@ export default function DyslexiaReader() {
               <div
                 className="relative z-0"
                 style={{
-                  fontFamily: '"OpenDyslexic", "Comic Sans MS", sans-serif',
+                  fontFamily:
+                    dyslexiaFonts.find((font) => font.name === selectedFont)
+                      ?.value || '"OpenDyslexic", sans-serif',
                   fontSize: "18px",
                   lineHeight: "1.8",
                   letterSpacing: "0.05em",
@@ -150,8 +198,8 @@ export default function DyslexiaReader() {
             <div className="flex items-start gap-3">
               <div className="w-2 h-2 bg-amber-500 rounded-full mt-1.5"></div>
               <div>
-                <strong>Fonte Especial:</strong> OpenDyslexic ou similar para
-                melhor legibilidade
+                <strong>Fontes Especiais:</strong> 5 fontes recomendadas para
+                dislexia com seletor personalizável
               </div>
             </div>
             <div className="flex items-start gap-3">
