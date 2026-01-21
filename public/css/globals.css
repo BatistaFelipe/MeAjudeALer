@@ -19,6 +19,13 @@
   }
 }
 
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("public/fonts/OpenDyslexic-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
