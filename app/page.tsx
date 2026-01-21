@@ -12,7 +12,7 @@ export default function DyslexiaReader() {
   const handleMouseMove = (e: MouseEvent) => {
     if (outputRef.current) {
       const rect = outputRef.current.getBoundingClientRect();
-      const y = e.clientY - rect.top;
+      const y = e.clientY - rect.top + outputRef.current.scrollTop;
       setRulerPosition(y);
       setShowRuler(true);
     }
@@ -25,7 +25,7 @@ export default function DyslexiaReader() {
   const handleTouchMove = (e: TouchEvent) => {
     if (outputRef.current && e.touches[0]) {
       const rect = outputRef.current.getBoundingClientRect();
-      const y = e.touches[0].clientY - rect.top;
+      const y = e.touches[0].clientY - rect.top + outputRef.current.scrollTop;
       setRulerPosition(y);
       setShowRuler(true);
     }
