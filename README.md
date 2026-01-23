@@ -234,6 +234,12 @@ Se este projeto te ajudou, considere dar uma ⭐ no repositório!
         <sub><b>CarlosEduJs</b></sub>
       </a>
     </td>
+    <td align="center">
+      <a href="https://github.com/devVitoria">
+        <img src="https://github.com/devVitoria.png" width="100px;" alt="Foto do CarlosEduJs"/><br />
+        <sub><b>devVitoria</b></sub>
+      </a>
+    </td>
   </tr>
 </table>
 
