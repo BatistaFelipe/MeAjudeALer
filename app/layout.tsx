@@ -1,5 +1,7 @@
 import "public/css/globals.css";
 import { Globe, Heart } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = {
   title: "MeAjudeALer | Leitor acessível para pessoas com dislexia",
@@ -10,7 +12,7 @@ export const metadata = {
   },
 };
 
-export default function RootLayoutRootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -31,7 +33,7 @@ export default function RootLayoutRootLayout({
       </head>
       <body>
         {children}
-        <footer className="mt-12 py-8 border-t border-gray-100 text-center">
+        <footer className="py-12 text-center bg-foreground">
           <div className="flex flex-col items-center gap-4 text-gray-500 text-sm">
             <p className="flex items-center gap-2">
               <Heart size={16} className="text-red-400" />
@@ -39,25 +41,27 @@ export default function RootLayoutRootLayout({
             </p>
 
             <div className="flex gap-6">
-              <a
+              <Link
                 href="https://github.com/BatistaFelipe/MeAjudeALer"
                 target="_blank"
                 className="flex items-center gap-2 hover:text-black transition-colors"
               >
-                <img
+                <Image
                   src="/images/github.svg"
                   alt="GitHub"
-                  className="w-5 h-5"
+                  className="w-5 h-5 "
+                  width={20}
+                  height={20}
                 />
                 GitHub
-              </a>
-              <a
+              </Link>
+              <Link
                 href="https://felipebatista.dev/"
                 target="_blank"
                 className="flex items-center gap-2 hover:text-black transition-colors"
               >
                 <Globe size={18} /> felipebatista.dev
-              </a>
+              </Link>
             </div>
           </div>
         </footer>
