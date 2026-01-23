@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState, useRef, MouseEvent, TouchEvent } from "react";
-import { BookOpen, Type, Eraser } from "lucide-react";
+import { BookOpen, Type, Eraser, Expand } from "lucide-react";
+import { cn } from "@/components/cn";
 
 export default function DyslexiaReader() {
   const [inputText, setInputText] = useState("");
   const [rulerPosition, setRulerPosition] = useState(0);
   const [showRuler, setShowRuler] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [selectedFont, setSelectedFont] = useState("OpenDyslexic");
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -64,6 +66,9 @@ export default function DyslexiaReader() {
     setInputText("");
   };
 
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  }
   const exampleText = `Cole seu texto aqui para uma leitura mais confortável. Esta ferramenta foi desenvolvida para ajudar pessoas com dislexia a ler com mais facilidade, usando espaçamento adequado, cores suaves e uma régua de leitura que acompanha seu movimento.`;
 
   return (
@@ -83,8 +88,10 @@ export default function DyslexiaReader() {
         </div>
 
         {/* Main Content */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className={cn("grid md:grid-cols-2 gap-6", isExpanded && "md:grid-cols-1")}>
           {/* Input Section */}
+
+        {!isExpanded && (
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
@@ -108,10 +115,11 @@ export default function DyslexiaReader() {
               className="w-full h-96 p-4 border-2 border-amber-200 rounded-xl focus:border-amber-400 focus:outline-none resize-none font-sans text-gray-700"
             />
           </div>
+          )}
 
           {/* Output Section with Ruler */}
           <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-4 ">
               <div className="flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-amber-700" />
                 <h2 className="text-xl font-semibold text-gray-800">
@@ -132,6 +140,15 @@ export default function DyslexiaReader() {
                     </option>
                   ))}
                 </select>
+
+                <button
+                  onClick={toggleExpand}
+                  aria-label="Expandir ou recolher modo de leitura"
+                  title={isExpanded ? "Recolher" : "Expandir"}
+                >
+                  <Expand className="w-5 h-5 text-amber-700 hover:bg-amber-100" />
+                </button>
+
               </div>
             </div>
             <div
@@ -140,7 +157,7 @@ export default function DyslexiaReader() {
               onMouseLeave={handleMouseLeave}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleMouseLeave}
-              className="relative h-96 overflow-y-auto rounded-xl p-6 cursor-crosshair"
+              className="relative h-96 bg-red-600 overflow-y-auto rounded-xl p-6 cursor-crosshair"
               style={{
                 backgroundColor: "#f5f5dc",
                 border: "2px solid #e5e5ca",
