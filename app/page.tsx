@@ -10,6 +10,7 @@ import {
   FileText,
 } from "lucide-react";
 import { cn } from "@/components/cn";
+import { toast } from "sonner";
 
 export default function DyslexiaReader() {
   const [inputText, setInputText] = useState("");
@@ -27,7 +28,7 @@ export default function DyslexiaReader() {
     },
     {
       name: "Lexend",
-      value: '"Lexend", sans-serif',
+      value: "var(--font-lexend), sans-serif",
       description: "Baseada em pesquisas de legibilidade",
     },
     {
@@ -71,6 +72,7 @@ export default function DyslexiaReader() {
 
   const clearText = () => {
     setInputText("");
+    toast.success("Operação realizada!");
   };
 
   const toggleExpand = () => {
