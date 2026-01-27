@@ -1,4 +1,4 @@
-import "public/css/globals.css";
+import "@/public/css/globals.css";
 import { Globe, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
