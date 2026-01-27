@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, MouseEvent, TouchEvent } from "react";
-import { BookOpen, Type, Eraser, Expand } from "lucide-react";
+import { BookOpen, Type, Eraser, Expand, Lightbulb } from "lucide-react";
 import { cn } from "@/components/cn";
 
 export default function DyslexiaReader() {
@@ -204,8 +204,11 @@ export default function DyslexiaReader() {
                 )}
               </div>
             </div>
-            <p className="text-xs text-gray-600 mt-3 text-center">
-              💡 Mova o mouse ou toque na tela para ativar a régua de leitura
+            <p className="flex items-center justify-center gap-2 text-xs text-gray-600 mt-3">
+              <Lightbulb className="w-4 h-4 text-amber-500" />
+              <span>
+                Mova o mouse ou toque na tela para ativar a régua de leitura
+              </span>
             </p>
           </div>
         </div>
