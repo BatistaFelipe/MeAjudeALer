@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useRef, MouseEvent, TouchEvent } from "react";
-import { BookOpen, Type, Eraser, Expand, Lightbulb } from "lucide-react";
+import {
+  BookOpen,
+  Type,
+  Eraser,
+  Expand,
+  Lightbulb,
+  FileText,
+} from "lucide-react";
 import { cn } from "@/components/cn";
 
 export default function DyslexiaReader() {
@@ -71,6 +78,36 @@ export default function DyslexiaReader() {
   };
   const exampleText = `Cole seu texto aqui para uma leitura mais confortável. Esta ferramenta foi desenvolvida para ajudar pessoas com dislexia a ler com mais facilidade, usando espaçamento adequado, cores suaves e uma régua de leitura que acompanha seu movimento.`;
 
+  const [loading, setLoading] = useState(false);
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file || file.type !== "application/pdf") {
+      alert("Por favor, selecione um arquivo PDF.");
+      return;
+    }
+
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/api/v1/pdf", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      setInputText(data.text);
+      toggleExpand();
+    } catch (error) {
+      console.error("Erro no upload:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
@@ -105,9 +142,33 @@ export default function DyslexiaReader() {
                     Texto Original
                   </h2>
                 </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="file"
+                    id="pdf-upload"
+                    accept=".pdf"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                  <label
+                    htmlFor="pdf-upload"
+                    className="flex items-center gap-2 px-3 py-2 text-sm bg-amber-50 text-amber-900 border-2 border-amber-200 rounded-lg hover:bg-amber-100 focus:border-amber-400 cursor-pointer transition-colors"
+                  >
+                    {loading ? (
+                      "Processando..."
+                    ) : (
+                      <>
+                        <FileText className="w-4 h-4 text-amber-500" />
+                        Anexar PDF
+                      </>
+                    )}
+                  </label>
+                  {/* <FileText className="w-4 h-4 text-amber-500" />
+                  Importar PDF */}
+                </div>
                 <button
                   onClick={clearText}
-                  className="flex items-center gap-2 px-3 py-2 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 text-sm bg-red-100 text-red-700 border-2 border-red-200 rounded-lg hover:bg-red-200 focus: cursor-pointer transition-colors"
                 >
                   <Eraser className="w-4 h-4" />
                   Limpar
@@ -151,7 +212,7 @@ export default function DyslexiaReader() {
                   aria-label="Expandir ou recolher modo de leitura"
                   title={isExpanded ? "Recolher" : "Expandir"}
                 >
-                  <Expand className="w-5 h-5 text-amber-700 hover:bg-amber-100" />
+                  <Expand className="w-5 h-5 text-amber-700 hover:bg-amber-100 focus: cursor-pointer" />
                 </button>
               </div>
             </div>
