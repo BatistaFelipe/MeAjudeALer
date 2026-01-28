@@ -86,7 +86,7 @@ export default function DyslexiaReader() {
   ) => {
     const file = event.target.files?.[0];
     if (!file || file.type !== "application/pdf") {
-      toast.error("Por favor, selecione um arquivo PDF.");
+      toast.error("Selecione um arquivo PDF");
       return;
     }
 
@@ -100,11 +100,24 @@ export default function DyslexiaReader() {
         method: "POST",
         body: formData,
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Falha ao extrair o texto do PDF");
+      }
+
       const data = await response.json();
+
+      if (!data.text) {
+        throw new Error("O PDF não tem texto");
+      }
+
       setInputText(data.text);
       toggleExpand();
-    } catch (error) {
-      console.error("Erro no upload:", error);
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Erro desconhecido";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -165,8 +178,6 @@ export default function DyslexiaReader() {
                       </>
                     )}
                   </label>
-                  {/* <FileText className="w-4 h-4 text-amber-500" />
-                  Importar PDF */}
                 </div>
                 <button
                   onClick={clearText}
