@@ -33,7 +33,7 @@ export default function DyslexiaReader() {
     },
     {
       name: "Comic Sans MS",
-      value: '"Comic Sans MS", cursive',
+      value: '"Comic Sans MS", "Comic Sans", sans-serif',
       description: "Comprovadamente eficaz para dislexia",
     },
     {
