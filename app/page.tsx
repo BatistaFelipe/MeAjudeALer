@@ -86,7 +86,7 @@ export default function DyslexiaReader() {
   ) => {
     const file = event.target.files?.[0];
     if (!file || file.type !== "application/pdf") {
-      alert("Por favor, selecione um arquivo PDF.");
+      toast.error("Por favor, selecione um arquivo PDF.");
       return;
     }
 
