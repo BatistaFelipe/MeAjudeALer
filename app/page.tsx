@@ -18,6 +18,7 @@ export default function DyslexiaReader() {
   const [showRuler, setShowRuler] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedFont, setSelectedFont] = useState("OpenDyslexic");
+  const [inputTextDisable, setInputTextDisable] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
 
   const dyslexiaFonts = [
@@ -71,6 +72,8 @@ export default function DyslexiaReader() {
   };
 
   const clearText = () => {
+    setInputTextDisable(false);
+    setPdfFile(null);
     setInputText("");
     toast.success("Operação realizada!");
   };
@@ -81,6 +84,7 @@ export default function DyslexiaReader() {
   const exampleText = `Cole seu texto aqui para uma leitura mais confortável. Esta ferramenta foi desenvolvida para ajudar pessoas com dislexia a ler com mais facilidade, usando espaçamento adequado, cores suaves e uma régua de leitura que acompanha seu movimento.`;
 
   const [loading, setLoading] = useState(false);
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -89,7 +93,6 @@ export default function DyslexiaReader() {
       toast.error("Selecione um arquivo PDF");
       return;
     }
-
     setLoading(true);
 
     const formData = new FormData();
@@ -113,6 +116,8 @@ export default function DyslexiaReader() {
       }
 
       setInputText(data.text);
+      setInputTextDisable(true);
+      setPdfFile(file);
       toggleExpand();
     } catch (error: unknown) {
       const errorMessage =
@@ -127,7 +132,7 @@ export default function DyslexiaReader() {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center items-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-3">
             <BookOpen className="w-10 h-10 text-amber-700" />
             <h1 className="text-3xl md:text-4xl font-bold text-amber-900">
@@ -137,6 +142,12 @@ export default function DyslexiaReader() {
           <p className="text-amber-800 text-sm md:text-base">
             Ferramenta de leitura otimizada para pessoas com dislexia
           </p>
+          {pdfFile && (
+            <div className="mt-4 flex items-center justify-center gap-2 text-sm text-amber-900">
+              <FileText className="w-4 h-4 text-amber-500" />
+              <span className="truncate max-w-[200px]">{pdfFile.name}</span>
+            </div>
+          )}
         </div>
 
         {/* Main Content */}
@@ -150,48 +161,49 @@ export default function DyslexiaReader() {
 
           {!isExpanded && (
             <div className="bg-white rounded-2xl shadow-lg p-6">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                 <div className="flex items-center gap-2">
                   <Type className="w-5 h-5 text-amber-700" />
                   <h2 className="text-xl font-semibold text-gray-800">
                     Texto Original
                   </h2>
                 </div>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="file"
-                    id="pdf-upload"
-                    accept=".pdf"
-                    className="hidden"
-                    onChange={handleFileChange}
-                  />
+                <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto items-end">
                   <label
+                    className="flex-1 min-w-[140px] flex text-sm font-medium text-amber-900 whitespace-nowrap items-center justify-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-lg cursor-pointer hover:bg-amber-100 transition-colors"
                     htmlFor="pdf-upload"
-                    className="flex items-center gap-2 px-3 py-2 text-sm bg-amber-50 text-amber-900 border-2 border-amber-200 rounded-lg hover:bg-amber-100 focus:border-amber-400 cursor-pointer transition-colors"
                   >
+                    <input
+                      type="file"
+                      id="pdf-upload"
+                      accept=".pdf"
+                      className="hidden"
+                      onChange={handleFileChange}
+                    />
                     {loading ? (
                       "Processando..."
                     ) : (
                       <>
-                        <FileText className="w-4 h-4 text-amber-500" />
+                        <FileText className="w-4 h-4 text-amber-500 shrink-0" />
                         Anexar PDF
                       </>
                     )}
                   </label>
+                  <button
+                    onClick={clearText}
+                    className="flex-1 min-w-[140px] flex items-center text-sm font-medium whitespace-nowrap justify-center text-red-900 gap-2 bg-red-50 border border-red-100 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors"
+                  >
+                    <Eraser className="w-4 h-4 shrink-0" />
+                    Limpar
+                  </button>
                 </div>
-                <button
-                  onClick={clearText}
-                  className="flex items-center gap-2 px-3 py-2 text-sm bg-red-100 text-red-700 border-2 border-red-200 rounded-lg hover:bg-red-200 focus: cursor-pointer transition-colors"
-                >
-                  <Eraser className="w-4 h-4" />
-                  Limpar
-                </button>
               </div>
               <textarea
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder={exampleText}
-                className="w-full h-96 p-4 border-2 border-amber-200 rounded-xl focus:border-amber-400 focus:outline-none resize-none font-sans text-gray-700"
+                className="w-full h-96 p-4 border-2 border-amber-200 rounded-xl focus:border-amber-400 focus:outline-none resize-none font-sans text-gray-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200 disabled:cursor-not-allowed disabled:shadow-none disabled:opacity-75"
+                disabled={inputTextDisable}
               />
             </div>
           )}
