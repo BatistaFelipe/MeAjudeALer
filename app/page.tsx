@@ -90,7 +90,7 @@ export default function DyslexiaReader() {
         {/* Main Content */}
         <div
           className={cn(
-            "grid md:grid-cols-2 gap-6",
+            "flex flex-col md:grid md:grid-cols-2 gap-6",
             isExpanded && "md:grid-cols-1",
           )}
         >
