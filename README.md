@@ -236,8 +236,14 @@ Se este projeto te ajudou, considere dar uma ⭐ no repositório!
     </td>
     <td align="center">
       <a href="https://github.com/devVitoria">
-        <img src="https://github.com/devVitoria.png" width="100px;" alt="Foto do CarlosEduJs"/><br />
+        <img src="https://github.com/devVitoria.png" width="100px;" alt="Foto do devVitoria"/><br />
         <sub><b>devVitoria</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/leogalencar">
+        <img src="https://github.com/leogalencar.png" width="100px;" alt="Foto do leogalencar"/><br />
+        <sub><b>leogalencar</b></sub>
       </a>
     </td>
   </tr>
