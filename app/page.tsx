@@ -189,8 +189,8 @@ export default function DyslexiaReader() {
                     dyslexiaFonts.find((font) => font.name === selectedFont)
                       ?.value || '"OpenDyslexic", sans-serif',
                   fontSize: "18px",
-                  lineHeight: "1.8",
-                  letterSpacing: "0.05em",
+                  lineHeight: "2",
+                  letterSpacing: "0.1em",
                   color: "#333",
                   maxWidth: "80ch",
                   wordWrap: "break-word",
