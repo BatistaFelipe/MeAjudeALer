@@ -280,6 +280,7 @@ export default function DyslexiaReader() {
                   color: "#333",
                   maxWidth: "80ch",
                   wordWrap: "break-word",
+                  whiteSpace: "pre-wrap",
                 }}
               >
                 {inputText || (
