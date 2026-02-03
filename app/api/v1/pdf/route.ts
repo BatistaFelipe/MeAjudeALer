@@ -3,7 +3,7 @@ require("pdf-parse/worker");
 import { PDFParse } from "pdf-parse";
 import { NextResponse } from "next/server";
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4 MB
 const ALLOWED_MIME_TYPE = "application/pdf";
 
 export async function POST(request: Request) {
@@ -59,7 +59,6 @@ export async function POST(request: Request) {
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "Erro desconhecido.";
-      console.error(error);
       return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
   }

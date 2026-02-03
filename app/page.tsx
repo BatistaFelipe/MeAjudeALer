@@ -93,6 +93,13 @@ export default function DyslexiaReader() {
       toast.error("Selecione um arquivo PDF");
       return;
     }
+
+    const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4 MB
+    if (file.size > MAX_FILE_SIZE){
+      toast.error(`O tamanho limite do arquivo é ${MAX_FILE_SIZE / 1024 / 1024}MB.`);
+      return;
+    }
+    
     setLoading(true);
 
     const formData = new FormData();
