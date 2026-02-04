@@ -8,6 +8,7 @@ import { FileUploader } from "@/components/FileUploader";
 import { FontSelector } from "@/components/FontSelector";
 import { Header } from "@/components/Header";
 import { FeaturesInfo } from "@/components/FeaturesInfo";
+import { ReadingCanvas } from "@/components/ReadingCanvas";
 
 export default function DyslexiaReader() {
   const [inputText, setInputText] = useState("");
@@ -95,54 +96,20 @@ export default function DyslexiaReader() {
                 />
               </div>
             </div>
-            <div
-              ref={outputRef}
+            <ReadingCanvas
+              rulerPosition={rulerPosition}
+              showRuler={showRuler}
+              fontValue={selectedFont || '"OpenDyslexic", sans-serif'}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               onTouchMove={handleTouchMove}
-              onTouchEnd={handleMouseLeave}
-              className="relative h-96 bg-red-600 overflow-y-auto rounded-xl p-6 cursor-crosshair"
-              style={{
-                backgroundColor: "#f5f5dc",
-                border: "2px solid #e5e5ca",
-              }}
             >
-              {/* Reading Ruler */}
-              {showRuler && (
-                <div
-                  className="absolute left-0 right-0 pointer-events-none z-10 transition-all duration-75"
-                  style={{
-                    top: `${rulerPosition}px`,
-                    height: "40px",
-                    backgroundColor: "rgba(255, 215, 0, 0.25)",
-                    boxShadow: "0 0 8px rgba(255, 215, 0, 0.4)",
-                    transform: "translateY(-20px)",
-                  }}
-                />
+              {inputText || (
+                <span className="text-gray-500 italic">
+                  Seu texto aparecerá aqui...
+                </span>
               )}
-
-              {/* Text Content */}
-              <div
-                className="relative z-0"
-                style={{
-                  fontFamily: selectedFont || '"OpenDyslexic", sans-serif',
-                  fontSize: "18px",
-                  lineHeight: "2",
-                  letterSpacing: "0.1em",
-                  color: "#333",
-                  maxWidth: "80ch",
-                  wordWrap: "break-word",
-                  whiteSpace: "pre-wrap",
-                }}
-              >
-                {inputText || (
-                  <span className="text-gray-500 italic">
-                    Seu texto aparecerá aqui com formatação otimizada para
-                    leitura...
-                  </span>
-                )}
-              </div>
-            </div>
+            </ReadingCanvas>
             <p className="flex items-center justify-center gap-2 text-xs text-gray-600 mt-3">
               <Lightbulb className="w-4 h-4 text-amber-500" />
               <span>
