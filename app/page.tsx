@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useRef, MouseEvent, TouchEvent } from "react";
-import { BookOpen, Type, Lightbulb, FileText } from "lucide-react";
+import { BookOpen, Lightbulb, FileText } from "lucide-react";
 import { cn } from "@/components/cn";
 import { ToggleExpand } from "@/components/ToggleExpand";
 import { FileUploader } from "@/components/FileUploader";
+import { FontSelector } from "@/components/FontSelector";
 
 export default function DyslexiaReader() {
   const [inputText, setInputText] = useState("");
@@ -21,34 +22,6 @@ export default function DyslexiaReader() {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
-
-  const dyslexiaFonts = [
-    {
-      name: "OpenDyslexic",
-      value: '"OpenDyslexic", sans-serif',
-      description: "Criada especificamente para dislexia",
-    },
-    {
-      name: "Lexend",
-      value: "var(--font-lexend), sans-serif",
-      description: "Baseada em pesquisas de legibilidade",
-    },
-    {
-      name: "Comic Sans MS",
-      value: '"Comic Sans MS", "Comic Sans", sans-serif',
-      description: "Comprovadamente eficaz para dislexia",
-    },
-    {
-      name: "Arial",
-      value: "Arial, sans-serif",
-      description: "Simples e clara",
-    },
-    {
-      name: "Verdana",
-      value: "Verdana, sans-serif",
-      description: "Excelente legibilidade em telas",
-    },
-  ];
 
   const handleMouseMove = (e: MouseEvent) => {
     if (outputRef.current) {
@@ -126,19 +99,10 @@ export default function DyslexiaReader() {
                 </h2>
               </div>
               <div className="flex items-center gap-2">
-                <Type className="w-4 h-4 text-amber-700" />
-                <select
-                  value={selectedFont}
-                  onChange={(e) => setSelectedFont(e.target.value)}
-                  aria-label="Selecionar fonte para leitura"
-                  className="px-3 py-2 text-sm bg-amber-50 text-amber-900 border-2 border-amber-200 rounded-lg hover:bg-amber-100 focus:border-amber-400 focus:outline-none transition-colors cursor-pointer"
-                >
-                  {dyslexiaFonts.map((font) => (
-                    <option key={font.name} value={font.name}>
-                      {font.name}
-                    </option>
-                  ))}
-                </select>
+                <FontSelector
+                  selectedFont={selectedFont}
+                  setSelectedFont={setSelectedFont}
+                />
                 <ToggleExpand
                   toggleExpand={toggleExpand}
                   isExpanded={isExpanded}
@@ -175,9 +139,7 @@ export default function DyslexiaReader() {
               <div
                 className="relative z-0"
                 style={{
-                  fontFamily:
-                    dyslexiaFonts.find((font) => font.name === selectedFont)
-                      ?.value || '"OpenDyslexic", sans-serif',
+                  fontFamily: selectedFont || '"OpenDyslexic", sans-serif',
                   fontSize: "18px",
                   lineHeight: "2",
                   letterSpacing: "0.1em",
