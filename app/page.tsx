@@ -1,26 +1,26 @@
 "use client";
 
 import React, { useState, useRef, MouseEvent, TouchEvent } from "react";
-import {
-  BookOpen,
-  Type,
-  Eraser,
-  Expand,
-  Lightbulb,
-  FileText,
-} from "lucide-react";
+import { BookOpen, Type, Lightbulb, FileText } from "lucide-react";
 import { cn } from "@/components/cn";
-import { toast } from "sonner";
-import { validatePDF } from "@/lib/utils/validate-pdf";
+import { ToggleExpand } from "@/components/ToggleExpand";
+import { FileUploader } from "@/components/FileUploader";
 
 export default function DyslexiaReader() {
   const [inputText, setInputText] = useState("");
+  const [inputTextDisable, setInputTextDisable] = useState(false);
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [rulerPosition, setRulerPosition] = useState(0);
   const [showRuler, setShowRuler] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const [selectedFont, setSelectedFont] = useState("OpenDyslexic");
-  const [inputTextDisable, setInputTextDisable] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const outputRef = useRef<HTMLDivElement>(null);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   const dyslexiaFonts = [
     {
@@ -72,61 +72,6 @@ export default function DyslexiaReader() {
     }
   };
 
-  const clearText = () => {
-    setInputTextDisable(false);
-    setPdfFile(null);
-    setInputText("");
-    toast.success("Operação realizada!");
-  };
-
-  const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-  const exampleText = `Cole seu texto aqui para uma leitura mais confortável. Esta ferramenta foi desenvolvida para ajudar pessoas com dislexia a ler com mais facilidade, usando espaçamento adequado, cores suaves e uma régua de leitura que acompanha seu movimento.`;
-
-  const [loading, setLoading] = useState(false);
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    try {
-      const file = event.target.files?.[0];
-      if (!file) return;
-      setLoading(true);
-  
-      const error = validatePDF(file);
-      if (error) return toast.error(error);
-  
-      const formData = new FormData();
-      formData.append("file", file);
-      const response = await fetch("/api/v1/pdf", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Falha ao extrair o texto do PDF");
-      }
-
-      const data = await response.json();
-      if (!data.text) {
-        throw new Error("O PDF não tem texto");
-      }
-
-      setInputText(data.text);
-      setInputTextDisable(true);
-      setPdfFile(file);
-      toggleExpand();
-    } catch (error: unknown) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Erro desconhecido";
-      toast.error(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
@@ -159,52 +104,16 @@ export default function DyslexiaReader() {
           {/* Input Section */}
 
           {!isExpanded && (
-            <div className="bg-white rounded-2xl shadow-lg p-6">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                <div className="flex items-center gap-2">
-                  <Type className="w-5 h-5 text-amber-700" />
-                  <h2 className="text-xl font-semibold text-gray-800">
-                    Texto Original
-                  </h2>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto items-end">
-                  <label
-                    className="flex-1 min-w-[140px] flex text-sm font-medium text-amber-900 whitespace-nowrap items-center justify-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-lg cursor-pointer hover:bg-amber-100 transition-colors"
-                    htmlFor="pdf-upload"
-                  >
-                    <input
-                      type="file"
-                      id="pdf-upload"
-                      accept=".pdf"
-                      className="hidden"
-                      onChange={handleFileChange}
-                    />
-                    {loading ? (
-                      "Processando..."
-                    ) : (
-                      <>
-                        <FileText className="w-4 h-4 text-amber-500 shrink-0" />
-                        Anexar PDF
-                      </>
-                    )}
-                  </label>
-                  <button
-                    onClick={clearText}
-                    className="flex-1 min-w-[140px] flex items-center text-sm font-medium whitespace-nowrap justify-center text-red-900 gap-2 bg-red-50 border border-red-100 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors"
-                  >
-                    <Eraser className="w-4 h-4 shrink-0" />
-                    Limpar
-                  </button>
-                </div>
-              </div>
-              <textarea
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                placeholder={exampleText}
-                className="w-full h-96 p-4 border-2 border-amber-200 rounded-xl focus:border-amber-400 focus:outline-none resize-none font-sans text-gray-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200 disabled:cursor-not-allowed disabled:shadow-none disabled:opacity-75"
-                disabled={inputTextDisable}
-              />
-            </div>
+            <FileUploader
+              inputText={inputText}
+              setInputText={setInputText}
+              inputTextDisable={inputTextDisable}
+              setInputTextDisable={setInputTextDisable}
+              setPdfFile={setPdfFile}
+              loading={loading}
+              setLoading={setLoading}
+              setIsExpanded={setIsExpanded}
+            />
           )}
 
           {/* Output Section with Ruler */}
@@ -230,14 +139,10 @@ export default function DyslexiaReader() {
                     </option>
                   ))}
                 </select>
-
-                <button
-                  onClick={toggleExpand}
-                  aria-label="Expandir ou recolher modo de leitura"
-                  title={isExpanded ? "Recolher" : "Expandir"}
-                >
-                  <Expand className="w-5 h-5 text-amber-700 hover:bg-amber-100 focus: cursor-pointer" />
-                </button>
+                <ToggleExpand
+                  toggleExpand={toggleExpand}
+                  isExpanded={isExpanded}
+                />
               </div>
             </div>
             <div
