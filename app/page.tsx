@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/components/cn";
 import { toast } from "sonner";
+import { validatePDF } from "@/lib/utils/validate-pdf";
 
 export default function DyslexiaReader() {
   const [inputText, setInputText] = useState("");
@@ -88,24 +89,16 @@ export default function DyslexiaReader() {
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const file = event.target.files?.[0];
-    if (!file || file.type !== "application/pdf") {
-      toast.error("Selecione um arquivo PDF");
-      return;
-    }
-
-    const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4 MB
-    if (file.size > MAX_FILE_SIZE){
-      toast.error(`O tamanho limite do arquivo é ${MAX_FILE_SIZE / 1024 / 1024}MB.`);
-      return;
-    }
-    
-    setLoading(true);
-
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      setLoading(true);
+  
+      const error = validatePDF(file);
+      if (error) return toast.error(error);
+  
+      const formData = new FormData();
+      formData.append("file", file);
       const response = await fetch("/api/v1/pdf", {
         method: "POST",
         body: formData,
@@ -117,7 +110,6 @@ export default function DyslexiaReader() {
       }
 
       const data = await response.json();
-
       if (!data.text) {
         throw new Error("O PDF não tem texto");
       }
