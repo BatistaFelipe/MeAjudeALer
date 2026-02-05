@@ -1,6 +1,6 @@
 import "@/public/css/globals.css";
-import Footer from "@/components/footer";
-import ToasterNotify from "@/components/toaster";
+import Footer from "@/components/Footer";
+import ToasterNotify from "@/components/Toaster";
 import siteMetadata from "@/lib/metadata";
 import { Lexend } from "next/font/google";
 

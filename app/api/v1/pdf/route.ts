@@ -11,14 +11,14 @@ export async function POST(request: Request) {
       const file = formData.get("file") as File;
 
       let error = validatePDF(file);
-      if(error) return NextResponse.json({ error }, { status: 400 }); 
+      if (error) return NextResponse.json({ error }, { status: 400 });
 
       const arrayBuffer = await file.arrayBuffer();
-      error = headerPdfCheck(arrayBuffer)
-      if(error) return NextResponse.json({ error }, { status: 400 });
+      error = headerPdfCheck(arrayBuffer);
+      if (error) return NextResponse.json({ error }, { status: 400 });
 
       const finalData = await formatterPdf(arrayBuffer);
-      
+
       return NextResponse.json({ text: finalData });
     } catch (error: unknown) {
       const errorMessage =
