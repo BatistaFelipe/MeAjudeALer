@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test:watch": "jest --watchAll --runInBand --verbose",
+    "test": "jest --runInBand --verbose",
     "lint": "eslint",
     "lint:prettier:check": "prettier --check .",
     "lint:prettier:write": "prettier --write ."
