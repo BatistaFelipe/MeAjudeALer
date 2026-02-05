@@ -22,8 +22,7 @@ export function makePdfFile(content: string) {
 
 export function makeFormData(data: string, type: string) {
   const filename = "test.pdf";
-  const pdfFile = new File([data], filename);
-  const fileBlob = new Blob([pdfFile], { type });
+  const fileBlob = new Blob([data], { type });
   const formData = new FormData();
   formData.append("file", fileBlob, filename);
   return formData;
