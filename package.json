@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test:watch": "jest --watchAll --runInBand --verbose",
-    "test": "jest --runInBand --verbose",
+    "test": "concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\"",
     "lint": "eslint",
     "lint:prettier:check": "prettier --check .",
     "lint:prettier:write": "prettier --write ."
@@ -28,6 +28,7 @@
     "@types/node": "^20",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "^16.1.6",
     "jest": "^30.2.0",
