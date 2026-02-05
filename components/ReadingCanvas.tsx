@@ -1,26 +1,29 @@
-import React, { ReactNode } from "react";
+import { ReactNode, RefObject, MouseEvent, TouchEvent } from "react";
 
 interface ReadingCanvasProps {
   rulerPosition: number;
   showRuler: boolean;
-  fontValue: string;
-  children: ReactNode; // Aqui entra o texto (inputText)
-  onMouseMove: (e: React.MouseEvent) => void;
+  outputRef: RefObject<HTMLDivElement | null>;
+  onMouseMove: (e: MouseEvent) => void;
   onMouseLeave: () => void;
-  onTouchMove: (e: React.TouchEvent) => void;
+  onTouchMove: (e: TouchEvent) => void;
+  fontValue: string;
+  children: ReactNode;
 }
 
 export const ReadingCanvas = ({
   rulerPosition,
   showRuler,
-  fontValue,
-  children,
+  outputRef,
   onMouseMove,
   onMouseLeave,
   onTouchMove,
+  fontValue,
+  children,
 }: ReadingCanvasProps) => {
   return (
     <div
+      ref={outputRef}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       onTouchMove={onTouchMove}
@@ -31,7 +34,7 @@ export const ReadingCanvas = ({
         border: "2px solid #e5e5ca",
       }}
     >
-      {/* Régua de Leitura Isolada */}
+      {/* Reading Ruler */}
       {showRuler && (
         <div
           className="absolute left-0 right-0 pointer-events-none z-10 transition-all duration-75"
@@ -45,7 +48,7 @@ export const ReadingCanvas = ({
         />
       )}
 
-      {/* Área do Texto */}
+      {/* Text Content */}
       <div
         className="relative z-0"
         style={{

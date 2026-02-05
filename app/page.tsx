@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, MouseEvent, TouchEvent } from "react";
+import { useState } from "react";
 import { BookOpen, Lightbulb } from "lucide-react";
 import { cn } from "@/components/cn";
 import { ToggleExpand } from "@/components/ToggleExpand";
@@ -9,43 +9,27 @@ import { FontSelector } from "@/components/FontSelector";
 import { Header } from "@/components/Header";
 import { FeaturesInfo } from "@/components/FeaturesInfo";
 import { ReadingCanvas } from "@/components/ReadingCanvas";
+import { useReadingRuler } from "@/hooks/useReadingRuler";
 
 export default function DyslexiaReader() {
   const [inputText, setInputText] = useState("");
   const [inputTextDisable, setInputTextDisable] = useState(false);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
-  const [rulerPosition, setRulerPosition] = useState(0);
-  const [showRuler, setShowRuler] = useState(false);
   const [selectedFont, setSelectedFont] = useState("OpenDyslexic");
   const [loading, setLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const outputRef = useRef<HTMLDivElement>(null);
+  const {
+    rulerPosition,
+    showRuler,
+    outputRef,
+    handleMouseMove,
+    handleMouseLeave,
+    handleTouchMove,
+  } = useReadingRuler();
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
-  };
-
-  const handleMouseMove = (e: MouseEvent) => {
-    if (outputRef.current) {
-      const rect = outputRef.current.getBoundingClientRect();
-      const y = e.clientY - rect.top + outputRef.current.scrollTop;
-      setRulerPosition(y);
-      setShowRuler(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setShowRuler(false);
-  };
-
-  const handleTouchMove = (e: TouchEvent) => {
-    if (outputRef.current && e.touches[0]) {
-      const rect = outputRef.current.getBoundingClientRect();
-      const y = e.touches[0].clientY - rect.top + outputRef.current.scrollTop;
-      setRulerPosition(y);
-      setShowRuler(true);
-    }
   };
 
   return (
@@ -103,6 +87,7 @@ export default function DyslexiaReader() {
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               onTouchMove={handleTouchMove}
+              outputRef={outputRef}
             >
               {inputText || (
                 <span className="text-gray-500 italic">
