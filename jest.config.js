@@ -12,7 +12,6 @@ const customJestConfig = {
     "<rootDir>/.next/",
     "<rootDir>/tests/fixtures/",
   ],
-  testEnvironment: "jest-environment-jsdom",
 };
 
 module.exports = createJestConfig(customJestConfig);
