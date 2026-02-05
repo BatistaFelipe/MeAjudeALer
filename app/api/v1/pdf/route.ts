@@ -20,10 +20,20 @@ export async function POST(request: Request) {
       const finalData = await formatterPdf(arrayBuffer);
 
       return NextResponse.json({ text: finalData });
-    } catch (error: unknown) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Erro desconhecido.";
-      return NextResponse.json({ error: errorMessage }, { status: 500 });
+    } catch (error: any) {
+      if (error.message.includes("Content-Type")) {
+        return NextResponse.json(
+          {
+            error: "Cabeçalho Content-Type inválido. Use multipart/form-data.",
+          },
+          { status: 400 },
+        );
+      }
+
+      return NextResponse.json(
+        { error: "Erro ao processar requisição: " + error.message },
+        { status: 500 },
+      );
     }
   }
 
