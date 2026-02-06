@@ -1,4 +1,3 @@
-import { readFile } from "node:fs/promises";
 import { PDF_CONFIG } from "@/lib/config";
 import { makePdfFile, makeFormData } from "@/tests/utils/test-helper";
 

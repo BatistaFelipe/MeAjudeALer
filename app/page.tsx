@@ -37,7 +37,6 @@ export default function DyslexiaReader() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <Header pdfFile={pdfFile} />
-
         {/* Main Content */}
         <div
           className={cn(

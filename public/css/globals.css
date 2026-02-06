@@ -31,3 +31,32 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* MarkDown content in Modal */
+.markdown-content h2 {
+  @apply text-2xl font-bold mb-4 mt-6 block text-black;
+}
+
+.markdown-content h3 {
+  @apply text-xl font-bold mb-3 mt-5 block text-black;
+}
+
+.markdown-content ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  @apply text-left;
+}
+
+.markdown-content li {
+  display: list-item !important;
+  @apply mb-1 text-left;
+}
+
+.markdown-content p {
+  @apply mb-4 leading-relaxed text-left;
+}
+
+.markdown-content a {
+  @apply font-bold underline text-amber-900;
+}
