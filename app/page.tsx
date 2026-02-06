@@ -10,7 +10,6 @@ import { Header } from "@/components/Header";
 import { FeaturesInfo } from "@/components/FeaturesInfo";
 import { ReadingCanvas } from "@/components/ReadingCanvas";
 import { useReadingRuler } from "@/hooks/useReadingRuler";
-import AboutModal from "@/components/AboutModal";
 
 export default function DyslexiaReader() {
   const [inputText, setInputText] = useState("");
@@ -38,7 +37,6 @@ export default function DyslexiaReader() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <Header pdfFile={pdfFile} />
-        <AboutModal />
         {/* Main Content */}
         <div
           className={cn(

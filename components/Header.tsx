@@ -1,4 +1,5 @@
 import { BookOpen, FileText } from "lucide-react";
+import AboutModal from "./AboutModal";
 
 interface HeaderProps {
   pdfFile: File | null;
@@ -6,7 +7,7 @@ interface HeaderProps {
 
 export function Header({ pdfFile }: HeaderProps) {
   return (
-    <div className="text-center items-center mb-8">
+    <div className="text-center items-center justify-center gap-2">
       <div className="flex items-center justify-center gap-3 mb-3">
         <BookOpen className="w-10 h-10 text-amber-700" />
         <h1 className="text-3xl md:text-4xl font-bold text-amber-900">
@@ -22,6 +23,7 @@ export function Header({ pdfFile }: HeaderProps) {
           <span className="truncate max-w-[200px]">{pdfFile.name}</span>
         </div>
       )}
+      <AboutModal />
     </div>
   );
 }
