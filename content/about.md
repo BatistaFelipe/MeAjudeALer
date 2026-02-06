@@ -1,11 +1,21 @@
-# Lorem Ipsum
+## O que é Dislexia?
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis imperdiet nisl. Sed eu lorem sed neque blandit euismod. Etiam blandit consectetur pharetra. Maecenas tempor metus dolor, eget euismod mi egestas ac. Sed mollis quam at leo sodales, eget suscipit libero tempus. Integer a aliquam ligula. Integer tempus tellus in mauris dapibus, et aliquet ex lacinia. Nam porttitor justo ut enim volutpat faucibus. Quisque gravida nibh ut mollis pretium. Phasellus vitae dignissim turpis. Pellentesque vitae suscipit risus. Aenean eget libero tellus. Mauris massa velit, consequat sit amet tellus quis, rhoncus iaculis massa. In hac habitasse platea dictumst. Nulla sed dignissim magna.
+A dislexia é uma perturbação da aprendizagem que afeta a **leitura e a escrita**. Ela varia de leve a grave e não tem cura, mas pode ser gerenciada com o ensino adequado.
 
-In laoreet orci sed tristique finibus. Cras dapibus lobortis nisi, et commodo nibh commodo in. Fusce aliquam est eu enim maximus, vitae blandit nisl pharetra. Fusce ac facilisis nulla. Donec imperdiet in lorem sed pharetra. Quisque quis tellus eros. Nulla dui nisi, venenatis et vulputate ac, consectetur at leo. Quisque hendrerit mauris eget ex volutpat scelerisque eget quis lorem.
+### Principais Sinais
 
-Phasellus at est mauris. Etiam sagittis arcu ac tellus vulputate congue. Pellentesque consequat neque et egestas lobortis. Curabitur sit amet risus placerat, eleifend tortor at, elementum eros. In accumsan tortor sed justo vulputate, commodo luctus metus sollicitudin. Integer volutpat velit ipsum, ac lobortis tortor vulputate eget. Pellentesque suscipit purus nisl. Pellentesque lobortis viverra purus. Duis pellentesque massa quis metus sollicitudin pellentesque.
+- Dificuldade em ler rápido ou em voz alta.
+- Troca de letras ao escrever.
+- Dificuldade em entender textos ou pronunciar palavras longas.
 
-- [teste1](www.exemplo.com.br)
-- [teste2](www.exemplo.com.br)
-- [teste3](www.exemplo.com.br)
+### Causas e Diagnóstico
+
+A causa geralmente é **genética** (passada de pais para filhos), mas também pode surgir após pancadas na cabeça ou AVC. O diagnóstico é feito por especialistas que avaliam a visão, audição e memória, descartando falta de estudo ou problemas de vista.
+
+### Fatos Importantes
+
+- **Comum:** Afeta até 20% da população mundial em algum nível.
+- **Tratamento:** O foco é adaptar o ensino às necessidades da pessoa. Exercícios de visão não funcionam.
+- **Visão Moderna:** Muitos especialistas veem a dislexia apenas como uma **forma diferente de aprender**, que traz desafios, mas também habilidades únicas.
+
+Leia mais na [Wikipédia](https://pt.wikipedia.org/wiki/Dislexia).
