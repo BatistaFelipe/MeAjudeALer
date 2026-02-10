@@ -25,7 +25,7 @@ export default function AboutModal() {
         throw new Error("Arquivo MarkDown está vazio.");
       }
 
-      setData(data.text); 
+      setData(data.text);
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "Erro desconhecido";
@@ -46,16 +46,16 @@ export default function AboutModal() {
         className="flex justify-end gap-1 text-sm font-medium text-amber-900 items-center bg-white border border-amber-200 px-4 py-2 rounded-lg cursor-pointer hover:bg-amber-200 transition-colors"
       >
         {loading ? (
-              <LoaderCircle className="animate-spin w-4 h-4 shrink-0" />
-            ) : (
-        <Info className="w-4 h-4 shrink-0" />
-            )}
+          <LoaderCircle className="animate-spin w-4 h-4 shrink-0" />
+        ) : (
+          <Info className="w-4 h-4 shrink-0" />
+        )}
       </button>
-      {!loading && 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        {data && <Markdown>{data}</Markdown>}
-      </Modal>
-      }
+      {!loading && (
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          {data && <Markdown>{data}</Markdown>}
+        </Modal>
+      )}
     </div>
   );
 }
