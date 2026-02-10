@@ -75,35 +75,39 @@ export function FileUploader({
   };
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+      <div className="flex flex-wrap md:items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-2">
           <Type className="w-5 h-5 text-amber-700" />
           <h2 className="text-xl font-semibold text-gray-800">
             Texto Original
           </h2>
         </div>
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto items-end">
-          <label
-            className="flex-1 min-w-[140px] flex text-sm font-medium text-amber-900 whitespace-nowrap items-center justify-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-lg cursor-pointer hover:bg-amber-100 transition-colors"
-            htmlFor="pdf-upload"
-          >
-            <input
-              type="file"
-              id="pdf-upload"
-              accept=".pdf"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            {loading ? (
-              "Processando..."
-            ) : (
-              <>
-                <FileText className="w-4 h-4 text-amber-500 shrink-0" />
-                Anexar PDF
-              </>
-            )}
-          </label>
-          <ClearText onClear={clearText} />
+        <div className="flex flex-wrap flex-row-reverse gap-4">
+          <div className="flex items-center gap-2">
+            <label
+              className="flex-1 min-w-[140px] flex text-sm font-medium text-amber-900 whitespace-nowrap items-center justify-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-lg cursor-pointer hover:bg-amber-100 transition-colors"
+              htmlFor="pdf-upload"
+            >
+              <input
+                type="file"
+                id="pdf-upload"
+                accept=".pdf"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+              {loading ? (
+                "Processando..."
+              ) : (
+                <>
+                  <FileText className="w-4 h-4 text-amber-500 shrink-0" />
+                  Anexar PDF
+                </>
+              )}
+            </label>
+          </div>
+          <div className="flex items-center gap-2">
+            <ClearText onClear={clearText} />
+          </div>
         </div>
       </div>
       <textarea

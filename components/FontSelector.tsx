@@ -44,7 +44,7 @@ export function FontSelector({
         value={selectedFont}
         onChange={(e) => setSelectedFont(e.target.value)}
         aria-label="Selecionar fonte para leitura"
-        className="px-3 py-2 text-sm bg-amber-50 text-amber-900 border-2 border-amber-200 rounded-lg hover:bg-amber-100 focus:border-amber-400 focus:outline-none transition-colors cursor-pointer"
+        className="px-3 py-2 w-full max-w-full sm:w-auto text-sm bg-amber-50 text-amber-900 border-2 border-amber-200 rounded-lg hover:bg-amber-100 focus:border-amber-400 focus:outline-none transition-colors cursor-pointer"
       >
         {dyslexiaFonts.map((font) => (
           <option key={font.name} value={font.name}>

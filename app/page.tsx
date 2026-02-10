@@ -61,14 +61,14 @@ export default function DyslexiaReader() {
 
           {/* Output Section with Ruler */}
           <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="flex items-center justify-between mb-4 ">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-between mb-4 ">
+              <div className="flex items-center gap-2 mb-4">
                 <BookOpen className="w-5 h-5 text-amber-700" />
                 <h2 className="text-xl font-semibold text-gray-800">
                   Leitura Facilitada
                 </h2>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-4">
                 <FontSelector
                   selectedFont={selectedFont}
                   setSelectedFont={setSelectedFont}
